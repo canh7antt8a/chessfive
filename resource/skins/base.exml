@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="base" width="768" height="1366" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect width="768" height="1366" x="0" y="0"/>
+	<e:Button id="btn_1" label="Button" x="18" y="27"/>
+	<e:Button label="Button" x="642.09" y="1260.64"/>
+	<e:Button label="Button" x="21" y="1188"/>
+	<e:Button label="Button" x="379" y="248"/>
+</e:Skin>

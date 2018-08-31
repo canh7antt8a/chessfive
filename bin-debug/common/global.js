@@ -9,4 +9,8 @@ var g_socket;
  * 事件分发
  */
 var g_dispatcher;
+/**
+ * 根节点
+ */
+var g_main_node;
 //# sourceMappingURL=global.js.map

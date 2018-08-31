@@ -29,6 +29,8 @@
 
 class Main extends eui.UILayer {
 
+    public _scenes : BaseScene[]
+    public _crt_scene : BaseScene
 
     protected createChildren(): void {
         super.createChildren();
@@ -109,22 +111,85 @@ class Main extends eui.UILayer {
         })
     }
 
-    private textfield: egret.TextField;
     /**
      * 创建场景界面
      * Create scene interface
      */
     protected createGameScene(): void {
         g_dispatcher = new Dispatcher()
+        g_main_node = this
+        this._scenes = new Array<BaseScene>()
 
-        let test = new testscene()
-        test.horizontalCenter = 0
-        test.verticalCenter = 0
-        this.addChild(test)
+        // let test = new testscene()
+        // test.horizontalCenter = 0
+        // test.verticalCenter = 0
+        // this.addChild(test)
 
 
-        let ws : NetWork = new NetWork()
-        this.addChild(ws)
-        g_socket = ws
+        // let ws : NetWork = new NetWork()
+        // this.addChild(ws)
+        // g_socket = ws
+
+        this.replace_scene(new LoginView())
+    }
+
+    /**
+     * 切换场景，传入继承BaseScene的类
+     */
+    public replace_scene( _newscene : BaseScene ) : void{
+        if(this._crt_scene == null)
+        {
+            this.addChild( _newscene )
+            this._crt_scene = _newscene
+            this._scenes.push(_newscene)
+            return
+        }
+
+        for (let scene of this._scenes){
+            this.removeChild(scene)
+        }
+
+        this._scenes = []
+
+        this._scenes.push( _newscene )
+        this.addChild(_newscene)
+        this._crt_scene = _newscene
+    }
+
+    /**
+     * 压入场景，之前的场景不移除
+     */
+    public push_scene( _newscene : BaseScene ) : void{
+        if(this._crt_scene == null)
+        {
+            this.replace_scene(_newscene)
+            return
+        }
+
+        this._crt_scene.visible = false
+        this.addChild(_newscene)
+        this._scenes.push(_newscene)
+        this._crt_scene = _newscene
+    }
+
+    /**
+     * 弹出场景移除，加载之前的场景
+     */
+    public pop_scene( ) : void{
+        if(this._crt_scene == null)
+            return
+
+        if(this._scenes.length == 1)
+        {
+            console.log("the last one scene, can not pop")
+            return
+        }
+
+        let popscene = this._scenes.pop()
+        this.removeChild(popscene)
+
+        let showscene = this._scenes[this._scenes.length-1]
+        showscene.visible = true
+        this._crt_scene = showscene
     }
 }

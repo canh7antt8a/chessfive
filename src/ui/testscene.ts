@@ -1,4 +1,4 @@
-class testscene extends eui.Component{
+class testscene extends BaseScene{
 	public btn_1:eui.Button;
 
 	public constructor() {
@@ -21,10 +21,11 @@ class testscene extends eui.Component{
 	}
 
 	public touch_tap() : void{
-		let req : EnterRoomReq = new EnterRoomReq()
-		req.uid = 123456
-		req.roomid = 10001
+		// let req : EnterRoomReq = new EnterRoomReq()
+		// req.uid = 123456
+		// req.roomid = 10001
 
-		g_socket.sendData( EnterRoomReq.encode(req) )
+		// g_socket.sendData( EnterRoomReq.encode(req) )
+		// g_main_node.push_scene(new Test1())
 	}
 }

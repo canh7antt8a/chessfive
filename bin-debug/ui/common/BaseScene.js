@@ -12,6 +12,8 @@ var BaseScene = (function (_super) {
     __extends(BaseScene, _super);
     function BaseScene() {
         var _this = _super.call(this) || this;
+        _this.horizontalCenter = 0;
+        _this.verticalCenter = 0;
         _this.once(egret.Event.ADDED_TO_STAGE, _this.on_add_stage, _this);
         return _this;
     }

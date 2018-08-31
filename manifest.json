@@ -13,18 +13,21 @@
 		"libs/modules/promise/promise.js"
 	],
 	"game": [
-		"bin-debug/AssetAdapter.js",
-		"bin-debug/LoadingUI.js",
-		"bin-debug/Main.js",
+		"bin-debug/ui/common/BaseNode.js",
+		"bin-debug/ui/common/BaseScene.js",
+		"bin-debug/manager/dispatcher.js",
 		"bin-debug/Platform.js",
 		"bin-debug/ThemeAdapter.js",
 		"bin-debug/common/global.js",
 		"bin-debug/config/game_config.js",
 		"bin-debug/logic/event.js",
-		"bin-debug/manager/dispatcher.js",
+		"bin-debug/LoadingUI.js",
 		"bin-debug/network/network.js",
 		"bin-debug/network/protocol.js",
 		"bin-debug/ui/testscene.js",
-		"bin-debug/ui/common/BaseScene.js"
+		"bin-debug/AssetAdapter.js",
+		"bin-debug/Main.js",
+		"bin-debug/ui/common/ConnectingMask.js",
+		"bin-debug/ui/login/LoginView.js"
 	]
 }

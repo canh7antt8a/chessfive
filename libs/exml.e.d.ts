@@ -1,3 +1,9 @@
+declare class base extends eui.Skin{
+}
+declare class connect_mask extends eui.Skin{
+}
+declare class login_view extends eui.Skin{
+}
 declare module skins{
 	class ButtonSkin extends eui.Skin{
 	}
@@ -49,6 +55,4 @@ declare module skins{
 declare module skins{
 	class VSliderSkin extends eui.Skin{
 	}
-}
-declare class base extends eui.Skin{
 }

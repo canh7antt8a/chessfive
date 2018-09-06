@@ -126,10 +126,12 @@ var NetWork = (function (_super) {
         if (cls) {
             var rsp = cls.decode(data);
             console.log(rsp);
+            //在此类里面处理
             var call_func = this._methods[prefix];
             if (call_func) {
                 call_func(rsp);
             }
+            //分发出去处理
             var evt_cls = G_Net_Event_List[prefix];
             if (evt_cls) {
                 var evt = new evt_cls();
@@ -143,21 +145,6 @@ var NetWork = (function (_super) {
         else {
             console.log("not found cls in G_Net_Data_Cls : ", prefix);
         }
-        // switch (prefix) {
-        // 	case "HeartBeat":
-        // 		console.log("HeartBeat rsp")
-        // 		let heartbeat = HeartBeat.decode( data )
-        // 		console.log(heartbeat)
-        // 		this._beats = heartbeat.beats
-        // 		break;
-        // 	case "EnterRoomRsp":
-        // 		console.log("EnterRoomRsp rsp")
-        // 		let rsp = EnterRoomRsp.decode( data )
-        // 		console.log(rsp)
-        // 		break;
-        // 	default:
-        // 		break;
-        // }
     };
     NetWork.prototype.heart_beat_rsp = function (data) {
         console.log("heart_beat_rsp");

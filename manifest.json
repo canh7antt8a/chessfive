@@ -13,13 +13,13 @@
 		"libs/modules/promise/promise.js"
 	],
 	"game": [
+		"bin-debug/config/game_config.js",
 		"bin-debug/AssetAdapter.js",
-		"bin-debug/LoadingUI.js",
 		"bin-debug/Main.js",
 		"bin-debug/Platform.js",
 		"bin-debug/ThemeAdapter.js",
 		"bin-debug/common/global.js",
-		"bin-debug/config/game_config.js",
+		"bin-debug/LoadingUI.js",
 		"bin-debug/logic/event.js",
 		"bin-debug/manager/dispatcher.js",
 		"bin-debug/network/network.js",

@@ -12,3 +12,8 @@ let g_socket : NetWork
  * 事件分发
  */
 let g_dispatcher : Dispatcher
+
+/**
+ * 根节点
+ */
+let g_main_node : Main

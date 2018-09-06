@@ -25,12 +25,13 @@ var testscene = (function (_super) {
         console.log("testscene heartbeat   ", evt.data);
     };
     testscene.prototype.touch_tap = function () {
-        var req = new EnterRoomReq();
-        req.uid = 123456;
-        req.roomid = 10001;
-        g_socket.sendData(EnterRoomReq.encode(req));
+        // let req : EnterRoomReq = new EnterRoomReq()
+        // req.uid = 123456
+        // req.roomid = 10001
+        // g_socket.sendData( EnterRoomReq.encode(req) )
+        // g_main_node.push_scene(new Test1())
     };
     return testscene;
-}(eui.Component));
+}(BaseScene));
 __reflect(testscene.prototype, "testscene");
 //# sourceMappingURL=testscene.js.map

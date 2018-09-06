@@ -75,12 +75,6 @@ var NetWork = (function (_super) {
         heartbeat.beats = this._beats;
         var json_str = HeartBeat.encode(heartbeat);
         this.sendData(json_str);
-        // if (this._beats == 3){
-        // 	let req : EnterRoomReq = new EnterRoomReq()
-        // 	req.uid = 123456
-        // 	req.roomid = 10001
-        // 	this.sendData( EnterRoomReq.encode(req) )
-        // }
     };
     NetWork.prototype.onSocketOpen = function () {
         console.log("onSocketOpen");
@@ -94,7 +88,8 @@ var NetWork = (function (_super) {
     NetWork.prototype.onSocketClose = function () {
         this._connect_status = NetStatus.CLOSED;
         console.log("onSocketClose");
-        this._heartbeat_timer.stop();
+        if (this._heartbeat_timer)
+            this._heartbeat_timer.stop();
         this._beats = 0;
     };
     NetWork.prototype.onSocketError = function () {

@@ -173,13 +173,64 @@ var Main = (function (_super) {
      */
     Main.prototype.createGameScene = function () {
         g_dispatcher = new Dispatcher();
-        var test = new testscene();
-        test.horizontalCenter = 0;
-        test.verticalCenter = 0;
-        this.addChild(test);
-        var ws = new NetWork();
-        this.addChild(ws);
-        g_socket = ws;
+        g_main_node = this;
+        this._scenes = new Array();
+        // let test = new testscene()
+        // test.horizontalCenter = 0
+        // test.verticalCenter = 0
+        // this.addChild(test)
+        // let ws : NetWork = new NetWork()
+        // this.addChild(ws)
+        // g_socket = ws
+        this.replace_scene(new LoginView());
+    };
+    /**
+     * 切换场景，传入继承BaseScene的类
+     */
+    Main.prototype.replace_scene = function (_newscene) {
+        if (this._crt_scene == null) {
+            this.addChild(_newscene);
+            this._crt_scene = _newscene;
+            this._scenes.push(_newscene);
+            return;
+        }
+        for (var _i = 0, _a = this._scenes; _i < _a.length; _i++) {
+            var scene = _a[_i];
+            this.removeChild(scene);
+        }
+        this._scenes = [];
+        this._scenes.push(_newscene);
+        this.addChild(_newscene);
+        this._crt_scene = _newscene;
+    };
+    /**
+     * 压入场景，之前的场景不移除
+     */
+    Main.prototype.push_scene = function (_newscene) {
+        if (this._crt_scene == null) {
+            this.replace_scene(_newscene);
+            return;
+        }
+        this._crt_scene.visible = false;
+        this.addChild(_newscene);
+        this._scenes.push(_newscene);
+        this._crt_scene = _newscene;
+    };
+    /**
+     * 弹出场景移除，加载之前的场景
+     */
+    Main.prototype.pop_scene = function () {
+        if (this._crt_scene == null)
+            return;
+        if (this._scenes.length == 1) {
+            console.log("the last one scene, can not pop");
+            return;
+        }
+        var popscene = this._scenes.pop();
+        this.removeChild(popscene);
+        var showscene = this._scenes[this._scenes.length - 1];
+        showscene.visible = true;
+        this._crt_scene = showscene;
     };
     return Main;
 }(eui.UILayer));

@@ -3,6 +3,8 @@ class BaseScene extends eui.Component{
 	public constructor() {
 		super()
 
+		this.horizontalCenter = 0
+		this.verticalCenter = 0
 		this.once( egret.Event.ADDED_TO_STAGE, this.on_add_stage, this )
 	}
 

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="roomlist" width="768" height="1366" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect width="700" height="1200" horizontalCenter="0" verticalCenter="0" fillColor="0xc98f8f" ellipseWidth="20" ellipseHeight="20" strokeWeight="5"/>
+	<e:Scroller width="700" height="1200" horizontalCenter="0" verticalCenter="0">
+		<e:List id="room_list"/>
+	</e:Scroller>
+</e:Skin>

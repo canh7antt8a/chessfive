@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="chatitem" width="768" height="80" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Label id="lab_content" text="Label" textColor="0x000000" textAlign="left" left="10" top="0" width="700" height="80"/>
+</e:Skin>

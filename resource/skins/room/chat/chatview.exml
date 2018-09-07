@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="chatview" width="768" height="1366" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect width="768" height="1366" horizontalCenter="0" verticalCenter="0" fillColor="0xffffff"/>
+	<e:Group width="768" height="1366" horizontalCenter="0" verticalCenter="0">
+		<e:Rect width="768" height="150" horizontalCenter="0" bottom="0" fillColor="0xc98484"/>
+		<e:TextInput id="input_content" width="500" height="120" bottom="15" left="15"/>
+		<e:Button id="btn_send" label="Send" bottom="50" right="50"/>
+		<e:Scroller width="768" height="1016" top="200" horizontalCenter="0">
+			<e:List id="chat_list"/>
+		</e:Scroller>
+		<e:Group width="768" height="200" horizontalCenter="0" top="0">
+			<e:Rect width="768" height="200" top="0" horizontalCenter="0" x="-248" y="-76" scaleX="1" scaleY="1"/>
+			<e:Button id="btn_back" label="Back" verticalCenter="0" left="50"/>
+		</e:Group>
+	</e:Group>
+</e:Skin>

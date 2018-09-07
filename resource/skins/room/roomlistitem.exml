@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="roomlistitem" width="700" height="150" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Label id="lab_roomid" text="Label" x="66" size="60" verticalCenter="0"/>
+	<e:Rect width="700" height="2" horizontalCenter="0" bottom="2"/>
+</e:Skin>

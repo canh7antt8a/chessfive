@@ -41,17 +41,17 @@ class NetWork extends eui.Component{
 		this.socket.addEventListener(egret.Event.CLOSE, this.onSocketClose, this)
 		this.socket.addEventListener(egret.IOErrorEvent.IO_ERROR, this.onSocketError, this)
 
-		this.socket.connect( NetWork.host, NetWork.port )
 	}
 
 	private init_call_funcs():void{
 		this._methods["HeartBeat"] = this.heart_beat_rsp
+		// this._methods["RoomListRsp"] = this.room_list_rsp
 	}
 
 	/**
 	 * 重连
 	 */
-	private reconnect() {
+	public reconnect() {
 		this.socket.connect( NetWork.host, NetWork.port )
 	}
 
@@ -101,11 +101,9 @@ class NetWork extends eui.Component{
 
 		this.start_heartbeat()
 
-        let login_req : LoginReq = new LoginReq()
-        login_req.uid = 123456
-        login_req.nickname = "lixiaojie"
+		g_dispatcher.dispatchEvent( new SOCKET_OPEN_EVENT() )
 
-        this.sendData( LoginReq.encode(login_req) )
+        
 	}        
 
 
@@ -148,7 +146,7 @@ class NetWork extends eui.Component{
 		console.log("prefix = ", prefix)
 
 		let data : string = str.slice(idx+1)
-		console.log("data = ", data)
+		console.log("[[json data]] = ", data)
 
 		let cls = G_Net_Data_Cls[prefix]
 
@@ -156,6 +154,7 @@ class NetWork extends eui.Component{
 
 		if(cls){
 			let rsp = cls.decode(data)
+			g_log("$$$$$$$$$$$$$$$$$$$")
 			console.log(rsp)
 
 			//在此类里面处理

@@ -117,6 +117,7 @@ class Main extends eui.UILayer {
      */
     protected createGameScene(): void {
         g_dispatcher = new Dispatcher()
+        g_user_info_mgr = new UserInfoManager()
         g_main_node = this
         this._scenes = new Array<BaseScene>()
 
@@ -125,10 +126,15 @@ class Main extends eui.UILayer {
         // test.verticalCenter = 0
         // this.addChild(test)
 
+        // let login = new LoginView()
+        // login.horizontalCenter = 0
+        // login.verticalCenter = 0
+        // this.addChild(login)
 
-        // let ws : NetWork = new NetWork()
-        // this.addChild(ws)
-        // g_socket = ws
+
+        let ws : NetWork = new NetWork()
+        this.addChild(ws)
+        g_socket = ws
 
         this.replace_scene(new LoginView())
     }
@@ -166,7 +172,7 @@ class Main extends eui.UILayer {
             return
         }
 
-        this._crt_scene.visible = false
+        this._crt_scene.set_visible(false)
         this.addChild(_newscene)
         this._scenes.push(_newscene)
         this._crt_scene = _newscene
@@ -189,7 +195,7 @@ class Main extends eui.UILayer {
         this.removeChild(popscene)
 
         let showscene = this._scenes[this._scenes.length-1]
-        showscene.visible = true
+        showscene.set_visible(true)
         this._crt_scene = showscene
     }
 }

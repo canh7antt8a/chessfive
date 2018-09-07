@@ -1,0 +1,7 @@
+class ChatModel {
+
+	
+
+	public constructor() {
+	}
+}

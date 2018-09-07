@@ -26,6 +26,10 @@ class testscene extends BaseScene{
 		// req.roomid = 10001
 
 		// g_socket.sendData( EnterRoomReq.encode(req) )
+		let req : RoomListReq = new RoomListReq()
+
+		g_socket.sendData( RoomListReq.encode(req) )
+
 		// g_main_node.push_scene(new Test1())
 	}
 }

@@ -39,6 +39,37 @@ class LoginReq {
 	}
 }
 
+
+/**
+ * PlayerInfo
+ */
+class PlayerInfo {
+    public uid : number
+    public nickname : string
+    constructor() {}
+}
+
+/**
+ * LoginRsp 登录响应
+ */
+class LoginRsp {
+    public code : number
+	public userInfo : PlayerInfo
+    public static _REQ_NAME = "LoginRsp"
+
+    public constructor() {
+        
+    }
+
+    public static decode(str : string): LoginRsp{
+		return <LoginRsp>JSON.parse( str )
+	}
+
+	public static encode( ins : LoginRsp ) : string{
+		return LoginRsp._REQ_NAME + "#" + JSON.stringify( ins )
+	}
+}
+
 /**
  * EnterRoomReq 进入房间
  */
@@ -62,11 +93,34 @@ class EnterRoomReq {
 	}
 }
 
+
+/**
+ * RoomInfo
+ */
+class RoomInfo {
+    public roomid : number
+    public maxpeople : number
+    public roomtype : number
+    public crtPlayerNum : number
+    constructor() {    }
+}
+
+/**
+ * RoomDetail  房间详情
+ */
+class RoomDetail extends RoomInfo{
+    public players : PlayerInfo[]
+    constructor() {
+        super()
+    }
+}
+
 /**
  * EnterRoomRsp 进入房间响应
  */
 class EnterRoomRsp {
     public code : number //0 成功，1失败
+    public roominfo : RoomDetail
 
     public static _REQ_NAME = "EnterRoomRsp"
     constructor() {
@@ -85,10 +139,114 @@ class EnterRoomRsp {
 
 
 
+
+/**
+ * RoomListReq
+ */
+class RoomListReq {
+    public static _REQ_NAME = "RoomListReq"
+    constructor() {
+        
+    }
+
+    public static decode(str : string): RoomListReq{
+		return <RoomListReq>JSON.parse( str )
+	}
+
+	public static encode( ins : RoomListReq ) : string{
+		return RoomListReq._REQ_NAME + "#" + JSON.stringify( ins )
+	}
+}
+
+/**
+ * RoomListRsp  房间列表响应
+ */
+class RoomListRsp {
+    public roomlist : RoomInfo[]
+    public static _REQ_NAME = "RoomListRsp"
+    constructor() {
+        
+    }
+
+    public static decode(str : string): RoomListRsp{
+		return <RoomListRsp>JSON.parse( str )
+	}
+
+	public static encode( ins : RoomListRsp ) : string{
+		return RoomListRsp._REQ_NAME + "#" + JSON.stringify( ins )
+	}
+}
+
+
+/**
+ * ExitRoomReq  退出房间请求
+ */
+class ExitRoomReq {
+    public uid : number
+    public roomid : number
+
+    public static _REQ_NAME = "ExitRoomReq"
+
+    constructor() {
+        this.uid = 0
+        this.roomid = 0
+    }
+
+    public static decode(str : string): ExitRoomReq{
+		return <ExitRoomReq>JSON.parse( str )
+	}
+
+	public static encode( ins : ExitRoomReq ) : string{
+		return ExitRoomReq._REQ_NAME + "#" + JSON.stringify( ins )
+	}
+}
+
+/**
+ * ExitRoomRsp  退出房间响应
+ */
+class ExitRoomRsp {
+    public code : number
+
+    public static _REQ_NAME = "ExitRoomRsp"
+
+    constructor() {}
+
+    public static decode(str : string): ExitRoomRsp{
+		return <ExitRoomRsp>JSON.parse( str )
+	}
+
+	public static encode( ins : ExitRoomRsp ) : string{
+		return ExitRoomRsp._REQ_NAME + "#" + JSON.stringify( ins )
+	}
+}
+
+
+/**
+ * ReEnterRoomRsp 断线重连数据
+ */
+class ReEnterRoomRsp {
+    public roomdetail : RoomDetail
+    public inroom : boolean
+    public static _REQ_NAME = "ReEnterRoomRsp"
+    constructor() {  }
+
+    public static decode(str : string): ReEnterRoomRsp{
+		return <ReEnterRoomRsp>JSON.parse( str )
+	}
+
+	public static encode( ins : ReEnterRoomRsp ) : string{
+		return ReEnterRoomRsp._REQ_NAME + "#" + JSON.stringify( ins )
+	}
+}
+
 /**
  * 网络消息的类，需要在这里注册才能正常处理
  */
 let G_Net_Data_Cls : any = {
     ["HeartBeat"] : HeartBeat,
     ["EnterRoomRsp"] : EnterRoomRsp,
+    ["RoomListRsp"] : RoomListRsp,
+    ["LoginRsp"] : LoginRsp,
+    ["ExitRoomRsp"] : ExitRoomRsp,
+    ["ReEnterRoomRsp"] : ReEnterRoomRsp,
 }

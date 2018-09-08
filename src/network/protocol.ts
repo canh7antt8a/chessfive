@@ -239,6 +239,30 @@ class ReEnterRoomRsp {
 	}
 }
 
+
+
+/**
+ * ChatMsg  
+ */
+class ChatMsg {
+    public uid : number
+    public roomid : number
+    public content : string
+    public static _REQ_NAME = "ChatMsg"
+    
+    constructor() {
+    }
+
+    public static decode(str : string): ChatMsg{
+		return <ChatMsg>JSON.parse( str )
+	}
+
+	public static encode( ins : ChatMsg ) : string{
+		return ChatMsg._REQ_NAME + "#" + JSON.stringify( ins )
+	}
+}
+
+
 /**
  * 网络消息的类，需要在这里注册才能正常处理
  */
@@ -249,4 +273,11 @@ let G_Net_Data_Cls : any = {
     ["LoginRsp"] : LoginRsp,
     ["ExitRoomRsp"] : ExitRoomRsp,
     ["ReEnterRoomRsp"] : ReEnterRoomRsp,
+    ["ChatMsg"] : ChatMsg,
 }
+
+
+//客户端加协议的步骤
+//1、在此类中加协议
+//2、在上面的G_Net_Data_Cls 中加入对应的类
+//3、在event.ts 中加入对应的事件

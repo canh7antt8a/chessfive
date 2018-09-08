@@ -105,6 +105,18 @@ class RE_ENTERROOM_EVENT extends egret.Event {
 
 
 /**
+ * CHATMSG_EVENT  断线重连房间信息
+ */
+class CHATMSG_EVENT extends egret.Event {
+    public static key : string = "CHATMSG"
+    public data : any
+    constructor(type:string = CHATMSG_EVENT.key, bubbles:boolean = false, cancelable:boolean = false) {
+        super( type, bubbles, cancelable )
+    }
+}
+
+
+/**
  * 网络消息的监听事件，需要先在这里注册
  */
 let G_Net_Event_List : any = {

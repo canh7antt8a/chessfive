@@ -20,16 +20,20 @@ class ChatRoomView extends BaseScene{
 		this.init()
 
 		this.btn_back.addEventListener( egret.TouchEvent.TOUCH_TAP, this.btn_back_call, this )
+		this.btn_send.addEventListener( egret.TouchEvent.TOUCH_TAP, this.btn_send_call, this )
 	}
 
 	public on_add() : void{
 		super.on_add()
 		g_dispatcher.addEventListener( EXIT_ROOM_EVENT.key, this.exit_room, this )		
+		g_dispatcher.addEventListener( CHATMSG_EVENT.key, this.chat_msg, this )
 	}
 
 	public on_remove() : void{
 		super.on_remove()		
 		g_dispatcher.removeEventListener( EXIT_ROOM_EVENT.key, this.exit_room, this )	
+		g_dispatcher.removeEventListener( CHATMSG_EVENT.key, this.chat_msg, this )
+		
 	}
 
 	private init() : void{
@@ -50,5 +54,18 @@ class ChatRoomView extends BaseScene{
 		req.roomid = this._room_info.roomid
 		req.uid = g_user_info_mgr.get_uid()
 		g_socket.sendData(ExitRoomReq.encode(req))
+	}
+
+	private btn_send_call() : void{
+		let req : ChatMsg = new ChatMsg()
+		req.roomid = this._room_info.roomid
+		req.uid = g_user_info_mgr.get_uid()
+		req.content = "fuck you"
+		g_socket.sendData(ChatMsg.encode(req))
+	}
+
+	private chat_msg(evt:CHATMSG_EVENT) : void{
+		let rsp : ChatMsg = evt.data
+		g_log(rsp.content)
 	}
 }

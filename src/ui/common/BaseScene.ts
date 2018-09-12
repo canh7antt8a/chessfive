@@ -1,3 +1,6 @@
+/**
+ * 场景的基类，游戏内的场景都需要继承此类
+ */
 class BaseScene extends eui.Component{
 
 	public _scene_name : string = "base"
@@ -74,13 +77,12 @@ class BaseScene extends eui.Component{
 		g_log("LoginView  connect_suc_rsp-------------")
 
 		let uid = g_user_info_mgr.get_uid()
-		let nickname = g_user_info_mgr.get_nickname()
+		// let nickname = g_user_info_mgr.get_nickname()
 
-		if(uid == 0 || nickname == "") return
+		if(uid == 0) return
 
 		let login_req : LoginReq = new LoginReq()
         login_req.uid = uid
-        login_req.nickname = nickname
 
         g_socket.sendData( LoginReq.encode(login_req) )
 	}
@@ -92,7 +94,11 @@ class BaseScene extends eui.Component{
 		g_log("re_enterroom_rsp+++++++++++++++")
 		let data : ReEnterRoomRsp = evt.data
 		if(data.inroom){
-			
+			g_log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+			if(data.roomdetail.roomtype == RoomType.Chat){
+				g_log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ##########")			
+				g_main_node.replace_scene( new ChatRoomView(data.roomdetail) )
+			}
 		}else{
 			if(this._scene_name == "chatroom"){
 				g_main_node.replace_scene( new LoginView() )

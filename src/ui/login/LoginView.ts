@@ -32,7 +32,6 @@ class LoginView extends BaseScene{
 		g_log("LoginView  connect_suc_rsp-------------")
 		let login_req : LoginReq = new LoginReq()
         login_req.uid = parseInt(this.input_id.text)
-        login_req.nickname = this.input_psw.text
 
         g_socket.sendData( LoginReq.encode(login_req) )
 	}
@@ -41,6 +40,10 @@ class LoginView extends BaseScene{
 	 * 登录响应事件回调
 	 */
 	public login_rsp_event(evt:LOGIN_RSP_EVENT) : void{
+		let data : LoginRsp = evt.data;
+		if(data.code == 1){
+			return
+		}
 		g_user_info_mgr.set_user_info( evt.data.userInfo )
 		g_main_node.replace_scene( new RoomView() )
 	}

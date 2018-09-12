@@ -125,5 +125,6 @@ let G_Net_Event_List : any = {
     ["RoomListRsp"] : ROOM_LIST_EVENT,
     ["ExitRoomRsp"] : EXIT_ROOM_EVENT,
     ["LoginRsp"] : LOGIN_RSP_EVENT,
-    ["ReEnterRoom"] : RE_ENTERROOM_EVENT,
+    ["ReEnterRoomRsp"] : RE_ENTERROOM_EVENT,
+    ["ChatMsg"] : CHATMSG_EVENT,
 }

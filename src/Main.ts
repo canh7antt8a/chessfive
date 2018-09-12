@@ -179,14 +179,17 @@ class Main extends eui.UILayer {
     }
 
     /**
-     * 弹出场景移除，加载之前的场景
+     * 弹出场景移除，加载之前的场景, respect是期望切换到的场景，可不传
      */
-    public pop_scene( ) : void{
+    public pop_scene( respect?:BaseScene ) : void{
         if(this._crt_scene == null)
             return
 
         if(this._scenes.length == 1)
         {
+            if(respect){
+                this.replace_scene( respect )
+            }
             console.log("the last one scene, can not pop")
             return
         }
@@ -195,6 +198,10 @@ class Main extends eui.UILayer {
         this.removeChild(popscene)
 
         let showscene = this._scenes[this._scenes.length-1]
+        if(showscene._scene_name != respect._scene_name){
+            this.replace_scene( respect )
+            return
+        }
         showscene.set_visible(true)
         this._crt_scene = showscene
     }

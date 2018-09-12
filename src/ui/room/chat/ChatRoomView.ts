@@ -4,10 +4,8 @@ class ChatRoomView extends BaseScene{
 	public chat_list:eui.List;
 	public btn_back:eui.Button;
 
-
-	public chat_data_array : eui.ArrayCollection
-
 	public _room_info : RoomDetail
+	public _chat_model:ChatModel
 
 	public constructor(roominfo:RoomDetail) {
 		super()
@@ -16,6 +14,7 @@ class ChatRoomView extends BaseScene{
 		this.skinName = "resource/skins/room/chat/chatview.exml"
 
 		this._room_info = roominfo
+		this._chat_model = new ChatModel( roominfo )
 
 		this.init()
 
@@ -39,33 +38,38 @@ class ChatRoomView extends BaseScene{
 	private init() : void{
 		this.chat_list.itemRenderer = ChatItem
 
-		this.chat_data_array = new eui.ArrayCollection()
-		this.chat_list.dataProvider = this.chat_data_array
+		this.chat_list.dataProvider = this._chat_model._chat_array
 	}
 
 	private exit_room(evt:EXIT_ROOM_EVENT) : void{
 		if(evt.data.code == 0){
-			g_main_node.pop_scene()
+			g_main_node.pop_scene(new RoomView())
 		}
 	}
 
 	private btn_back_call() : void{
 		let req : ExitRoomReq = new ExitRoomReq()
-		req.roomid = this._room_info.roomid
+		req.roomid = this._chat_model.get_room_id()
 		req.uid = g_user_info_mgr.get_uid()
 		g_socket.sendData(ExitRoomReq.encode(req))
 	}
 
 	private btn_send_call() : void{
 		let req : ChatMsg = new ChatMsg()
-		req.roomid = this._room_info.roomid
+		req.roomid = this._chat_model.get_room_id()
 		req.uid = g_user_info_mgr.get_uid()
 		req.content = "fuck you"
 		g_socket.sendData(ChatMsg.encode(req))
 	}
 
 	private chat_msg(evt:CHATMSG_EVENT) : void{
+		g_log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+		g_log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+		g_log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+		g_log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
 		let rsp : ChatMsg = evt.data
 		g_log(rsp.content)
+
+		this._chat_model.on_chat_msg( rsp )
 	}
 }

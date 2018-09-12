@@ -3,6 +3,8 @@ class ChatItem extends eui.ItemRenderer{
 
 	public constructor() {
 		super()
+
+		this.skinName = "resource/skins/room/chat/chatitem.exml"
 	}
 
 	public dataChanged() : void{

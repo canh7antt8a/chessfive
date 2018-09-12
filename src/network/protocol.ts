@@ -22,12 +22,10 @@ class HeartBeat {
  */
 class LoginReq {
     public uid : number
-	public nickname : string
     public static _REQ_NAME = "LoginReq"
 
     public constructor() {
         this.uid = 0
-        this.nickname = ""
     }
 
     public static decode(str : string): LoginReq{

@@ -76,8 +76,6 @@ class NetWork extends eui.Component{
 
 
 	private onRecieveData(e:egret.ProgressEvent) : void{
-		console.log("onRecieveData")
-
 		this.recieveData( this.socket.readUTF() )
 	}
 
@@ -102,8 +100,6 @@ class NetWork extends eui.Component{
 		this.start_heartbeat()
 
 		g_dispatcher.dispatchEvent( new SOCKET_OPEN_EVENT() )
-
-        
 	}        
 
 
@@ -134,28 +130,22 @@ class NetWork extends eui.Component{
 	 * 数据处理
 	 */
 	public recieveData( str:string ) : void{
-		console.log("recieve data : ", str)
-
 		let idx = str.indexOf("#")
 		if(idx == -1){
-			console.log("can not found #")
+			console.log("[[Found Error]] can not found #")
 			return
 		}
 
 		let prefix : string = str.slice( 0, idx )
-		console.log("prefix = ", prefix)
+		if(prefix != "HeartBeat"){
+			console.log("[[TAG]] prefix = ", prefix)
+		}
 
 		let data : string = str.slice(idx+1)
-		console.log("[[json data]] = ", data)
-
 		let cls = G_Net_Data_Cls[prefix]
-
-		
 
 		if(cls){
 			let rsp = cls.decode(data)
-			g_log("$$$$$$$$$$$$$$$$$$$")
-			console.log(rsp)
 
 			//在此类里面处理
 			let call_func = this._methods[prefix]
@@ -171,15 +161,14 @@ class NetWork extends eui.Component{
 				g_dispatcher.dispatchEvent(evt)
 
 			}else{
-				console.log("can not found event in G_Net_Event_List : ", prefix)
+				console.log("[[Found Warning]] can not found event in G_Net_Event_List : ", prefix)
 			}
 		}else{
-			console.log("not found cls in G_Net_Data_Cls : ", prefix)
+			console.log("[[Found Warning]] can not found cls in G_Net_Data_Cls : ", prefix)
 		}
 	}
 
 	private heart_beat_rsp(data:HeartBeat) : void{
-		console.log("heart_beat_rsp")
 		this._beats = data.beats
 	}
 }

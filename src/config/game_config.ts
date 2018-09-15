@@ -8,4 +8,5 @@ let SCREEN_HEIGHT : number = 1366
  */
 enum RoomType {
     Chat = 0,
+    FiveChess = 1,
 }

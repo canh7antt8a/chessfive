@@ -104,10 +104,22 @@ class RoomInfo {
 }
 
 /**
+ * RoomPlayer
+ */
+class RoomPlayer extends PlayerInfo {
+    public chairid : number
+    constructor() {
+        super()
+    }
+}
+
+
+/**
  * RoomDetail  房间详情
  */
 class RoomDetail extends RoomInfo{
-    public players : PlayerInfo[]
+    public players : RoomPlayer[]
+    public myChairID : number
     constructor() {
         super()
     }
@@ -262,6 +274,112 @@ class ChatMsg {
 
 
 /**
+ * FiveDownReq
+ */
+class FiveDownReq {
+    public uid : number
+    public roomid : number
+    public chairid : number
+    public color : number
+    public row : number
+    public col : number
+    public static _REQ_NAME = "FiveDownReq"
+    constructor() {}
+
+    public static decode(str : string): FiveDownReq{
+		return <FiveDownReq>JSON.parse( str )
+	}
+
+	public static encode( ins : FiveDownReq ) : string{
+		return FiveDownReq._REQ_NAME + "#" + JSON.stringify( ins )
+	}
+}
+
+/**
+ * FiveDownRsp
+ */
+class FiveDownRsp {
+    public uid : number
+    public roomid : number
+    public chairid : number
+    public color : number   //1黑 2白
+    public row : number
+    public col : number
+    public code : number
+    public nextchair : number
+    public static _REQ_NAME = "FiveDownRsp"
+    constructor() {}
+
+    public static decode(str : string): FiveDownRsp{
+		return <FiveDownRsp>JSON.parse( str )
+	}
+
+	public static encode( ins : FiveDownRsp ) : string{
+		return FiveDownRsp._REQ_NAME + "#" + JSON.stringify( ins )
+	}
+}
+
+/**
+ * FiveResult
+ */
+class FiveResult {
+    public winchair : number
+    public static _REQ_NAME = "FiveResult"
+    constructor() {}
+    public static decode(str : string): FiveResult{
+		return <FiveResult>JSON.parse( str )
+	}
+
+	public static encode( ins : FiveResult ) : string{
+		return FiveResult._REQ_NAME + "#" + JSON.stringify( ins )
+	}
+}
+
+/**
+ * FiveStart
+ */
+class FiveStart {
+    public actionChair : number
+    public myColor : number
+    public static _REQ_NAME = "FiveStart"
+    constructor() {}
+
+    public static decode(str : string): FiveStart{
+		return <FiveStart>JSON.parse( str )
+	}
+
+	public static encode( ins : FiveStart ) : string{
+		return FiveStart._REQ_NAME + "#" + JSON.stringify( ins )
+	}
+}
+
+
+/**
+ * SomebodyEnterExit 其他玩家进入或退出房间
+ */
+class SomebodyEnterExit {
+    public uid : number
+    public roomid : number
+    public code : number    //1进入，2退出
+    public players : RoomPlayer[]
+    public static _REQ_NAME = "SomebodyEnterExit"
+    constructor() {
+        
+    }
+
+    public static decode(str : string): SomebodyEnterExit{
+		return <SomebodyEnterExit>JSON.parse( str )
+	}
+
+	public static encode( ins : SomebodyEnterExit ) : string{
+		return SomebodyEnterExit._REQ_NAME + "#" + JSON.stringify( ins )
+	}
+}
+
+
+
+
+/**
  * 网络消息的类，需要在这里注册才能正常处理
  */
 let G_Net_Data_Cls : any = {
@@ -272,6 +390,10 @@ let G_Net_Data_Cls : any = {
     ["ExitRoomRsp"] : ExitRoomRsp,
     ["ReEnterRoomRsp"] : ReEnterRoomRsp,
     ["ChatMsg"] : ChatMsg,
+    ["FiveDownRsp"] : FiveDownRsp, 
+    ["FiveResult"] : FiveResult,
+    ["FiveStart"] : FiveStart,
+    ["SomebodyEnterExit"] : SomebodyEnterExit,
 }
 
 

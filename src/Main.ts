@@ -42,24 +42,24 @@ class Main extends eui.UILayer {
         egret.lifecycle.onPause = () => {
             console.log("lifecycle onPause")
 
-            if(g_dispatcher){
-                let event : BACK_GROUND_EVENT = new BACK_GROUND_EVENT()
-                g_dispatcher.dispatchEvent(event)
-            }
+            // if(g_dispatcher){
+            //     let event : BACK_GROUND_EVENT = new BACK_GROUND_EVENT()
+            //     g_dispatcher.dispatchEvent(event)
+            // }
                 
-            egret.ticker.pause();
+            // egret.ticker.pause();
         }
 
         egret.lifecycle.onResume = () => {
             console.log("lifecycle onResume")
 
-            if(g_dispatcher){
-                let event : FORGE_GROUND_EVENT = new FORGE_GROUND_EVENT()
-                g_dispatcher.dispatchEvent( event )
-            }
+            // if(g_dispatcher){
+            //     let event : FORGE_GROUND_EVENT = new FORGE_GROUND_EVENT()
+            //     g_dispatcher.dispatchEvent( event )
+            // }
             
 
-            egret.ticker.resume();
+            // egret.ticker.resume();
         }
 
         //inject the custom material parser
@@ -92,6 +92,7 @@ class Main extends eui.UILayer {
             await RES.loadConfig("resource/default.res.json", "resource/");
             await this.loadTheme();
             await RES.loadGroup("preload", 0, loadingView);
+            await RES.loadGroup("uires", 0, loadingView);
             this.stage.removeChild(loadingView);
         }
         catch (e) {
@@ -136,6 +137,7 @@ class Main extends eui.UILayer {
         this.addChild(ws)
         g_socket = ws
 
+        // this.replace_scene(new FiveChessView())
         this.replace_scene(new LoginView())
     }
 

@@ -74,13 +74,18 @@ class RoomView extends BaseScene{
 	public enter_room_rsp(evt:ENTER_ROOM_EVENT):void{
 		let data : EnterRoomRsp = evt.data
 		switch (data.roominfo.roomtype) {
-		case 0:
+		case RoomType.Chat:
 		{
 			g_log("data is chat room+++++++++++++++++++++")
 			g_main_node.push_scene( new ChatRoomView(data.roominfo) )
 			break;
 		}
-			
+		case RoomType.FiveChess:
+		{
+			g_log("data is chat room+++++++++++++++++++++")
+			g_main_node.push_scene( new FiveChessView(data.roominfo) )
+			break;
+		}
 		default:
 			break;
 		}

@@ -58,6 +58,19 @@ class ENTER_ROOM_EVENT extends egret.Event {
 }
 
 /**
+ * OTHER_IN_OUT_EVENT 其他玩家进入或退出房间
+ */
+class OTHER_IN_OUT_EVENT extends egret.Event {
+    public static key : string = "OTHER_IN_OUT"
+    public data : any
+    constructor(type:string = OTHER_IN_OUT_EVENT.key, bubbles:boolean = false, cancelable:boolean = false) {
+        super( type, bubbles, cancelable )
+    }
+}
+
+
+
+/**
  * HEARTBEAT_EVENT  心跳
  */
 class HEARTBEAT_EVENT extends egret.Event {
@@ -115,6 +128,38 @@ class CHATMSG_EVENT extends egret.Event {
     }
 }
 
+/**
+ * FIVE_DOWN_EVENT  五子棋下子
+ */
+class FIVE_DOWN_EVENT extends egret.Event {
+    public static key : string = "FIVE_DOWN"
+    public data : any
+    constructor(type:string = FIVE_DOWN_EVENT.key, bubbles:boolean = false, cancelable:boolean = false) {
+        super( type, bubbles, cancelable )
+    }
+}
+
+/**
+ * FIVE_RESULT_EVENT  五子棋
+ */
+class FIVE_RESULT_EVENT extends egret.Event {
+    public static key : string = "FIVE_RESULT"
+    public data : any
+    constructor(type:string = FIVE_RESULT_EVENT.key, bubbles:boolean = false, cancelable:boolean = false) {
+        super( type, bubbles, cancelable )
+    }
+}
+
+/**
+ * FIVE_START_EVENT  五子棋
+ */
+class FIVE_START_EVENT extends egret.Event {
+    public static key : string = "FIVE_START"
+    public data : any
+    constructor(type:string = FIVE_START_EVENT.key, bubbles:boolean = false, cancelable:boolean = false) {
+        super( type, bubbles, cancelable )
+    }
+}
 
 /**
  * 网络消息的监听事件，需要先在这里注册
@@ -127,4 +172,8 @@ let G_Net_Event_List : any = {
     ["LoginRsp"] : LOGIN_RSP_EVENT,
     ["ReEnterRoomRsp"] : RE_ENTERROOM_EVENT,
     ["ChatMsg"] : CHATMSG_EVENT,
+    ["FiveDownRsp"] : FIVE_DOWN_EVENT,
+    ["FiveResult"] : FIVE_RESULT_EVENT,
+    ["FiveStart"] : FIVE_START_EVENT,
+    ["SomebodyEnterExit"] : OTHER_IN_OUT_EVENT,
 }

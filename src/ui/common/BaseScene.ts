@@ -5,6 +5,8 @@ class BaseScene extends eui.Component{
 
 	public _scene_name : string = "base"
 
+	public _listen_map : any = {}
+
 	public constructor() {
 		super()
 
@@ -45,15 +47,18 @@ class BaseScene extends eui.Component{
 	}
 
 	public remove_event_listen() : void{
-		g_dispatcher.removeEventListener( LOGIN_RSP_EVENT.key, this.login_rsp_event, this )
-		g_dispatcher.removeEventListener( SOCKET_OPEN_EVENT.key, this.connect_suc_rsp, this )
-		g_dispatcher.removeEventListener( RE_ENTERROOM_EVENT.key, this.re_enterroom_rsp, this )
+		for(let key in this._listen_map){
+			g_dispatcher.removeEventListener( key, this._listen_map[key], this )
+		}
 	}
 
 	public add_event_listen() : void{
-		g_dispatcher.addEventListener( LOGIN_RSP_EVENT.key, this.login_rsp_event, this )
-		g_dispatcher.addEventListener( SOCKET_OPEN_EVENT.key, this.connect_suc_rsp, this )
-		g_dispatcher.addEventListener( RE_ENTERROOM_EVENT.key, this.re_enterroom_rsp, this )
+		this._listen_map[LOGIN_RSP_EVENT.key] = this.login_rsp_event
+		this._listen_map[SOCKET_OPEN_EVENT.key] = this.connect_suc_rsp
+		this._listen_map[RE_ENTERROOM_EVENT.key] = this.re_enterroom_rsp
+		for(let key in this._listen_map){
+			g_dispatcher.addEventListener( key, this._listen_map[key], this )
+		}
 	}
 
 	public set_visible(visible:boolean){
@@ -98,6 +103,9 @@ class BaseScene extends eui.Component{
 			if(data.roomdetail.roomtype == RoomType.Chat){
 				g_log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ##########")			
 				g_main_node.replace_scene( new ChatRoomView(data.roomdetail) )
+			}else if(data.roomdetail.roomtype == RoomType.FiveChess){
+				g_log("##########")
+				g_main_node.replace_scene( new FiveChessView(data.roomdetail) )
 			}
 		}else{
 			if(this._scene_name == "chatroom"){

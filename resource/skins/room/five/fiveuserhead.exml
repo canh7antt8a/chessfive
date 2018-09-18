@@ -4,5 +4,6 @@
 		<e:Rect width="150" height="150" ellipseWidth="30" ellipseHeight="30" strokeWeight="5" strokeColor="0xA01C47" verticalCenter="0" fillColor="0xF2EAEA" left="50"/>
 		<e:Label id="lab_uid" text="Empty" size="40" textAlign="left" width="400" top="50" textColor="0x000000" left="250"/>
 		<e:Label id="lab_nickname" text="Empty" size="40" textAlign="left" width="400" bottom="50" textColor="0x000000" left="250"/>
+		<e:Label id="lab_ready" text="Ready" x="81.5" y="135" textColor="0xffff00"/>
 	</e:Group>
 </e:Skin>

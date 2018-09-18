@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="fiveresult" width="768" height="1366" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect id="rect_bg" width="768" height="1366" x="0" y="0" fillAlpha="0.5"/>
+	<e:Group width="768" height="300" bottom="0" horizontalCenter="0">
+		<e:Rect width="768" height="300" ellipseWidth="0" ellipseHeight="0" strokeWeight="0" strokeColor="0xea5c25" fillColor="0xf7efef" horizontalCenter="0" bottom="0"/>
+		<e:Button id="btn_next" label="Next" bottom="50" horizontalCenter="150"/>
+		<e:Button id="btn_back" label="Back" horizontalCenter="-150" bottom="50"/>
+		<e:Label id="lab_winlost" text="res" size="100" horizontalCenter="0" textColor="0xf20909" top="30"/>
+	</e:Group>
+</e:Skin>

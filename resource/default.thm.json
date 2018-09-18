@@ -16,12 +16,6 @@
 	},
 	"autoGenerateExmlsList": true,
 	"exmls": [
-		"resource/skins/base.exml",
-<<<<<<< HEAD
-=======
-		"resource/skins/connect_mask.exml",
-		"resource/skins/login_view.exml",
->>>>>>> 42f4ea7578188c38f63099468b8525603f272cb5
 		"resource/eui_skins/ButtonSkin.exml",
 		"resource/eui_skins/CheckBoxSkin.exml",
 		"resource/eui_skins/HScrollBarSkin.exml",
@@ -34,7 +28,17 @@
 		"resource/eui_skins/TextInputSkin.exml",
 		"resource/eui_skins/ToggleSwitchSkin.exml",
 		"resource/eui_skins/VScrollBarSkin.exml",
-		"resource/eui_skins/VSliderSkin.exml"
+		"resource/eui_skins/VSliderSkin.exml",
+		"resource/skins/base.exml",
+		"resource/skins/connect_mask.exml",
+		"resource/skins/login_view.exml",
+		"resource/skins/room/roomlist.exml",
+		"resource/skins/room/roomlistitem.exml",
+		"resource/skins/room/chat/chatitem.exml",
+		"resource/skins/room/chat/chatview.exml",
+		"resource/skins/room/five/fivechess.exml",
+		"resource/skins/room/five/fiveresult.exml",
+		"resource/skins/room/five/fiveuserhead.exml"
 	],
 	"path": "resource/default.thm.json"
 }

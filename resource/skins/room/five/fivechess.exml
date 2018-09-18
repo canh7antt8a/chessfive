@@ -25,5 +25,6 @@
 		<ns1:FiveUserHead id="head_other" width="768" height="200" horizontalCenter="0" top="131"/>
 		<ns1:FiveUserHead id="head_mine" width="768" height="200" horizontalCenter="0" bottom="129"/>
 		<e:Label id="lab_roomid" text="0" top="50" right="50"/>
+		<e:Button id="btn_ready" label="Ready" horizontalCenter="0" bottom="50"/>
 	</e:Group>
 </e:Skin>

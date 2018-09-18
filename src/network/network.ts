@@ -145,8 +145,9 @@ class NetWork extends eui.Component{
 		let cls = G_Net_Data_Cls[prefix]
 
 		if(cls){
+			g_log("####  11")
 			let rsp = cls.decode(data)
-
+			g_log(rsp)
 			//在此类里面处理
 			let call_func = this._methods[prefix]
 			if(call_func){
@@ -156,6 +157,7 @@ class NetWork extends eui.Component{
 			//分发出去处理
 			let evt_cls = G_Net_Event_List[prefix]
 			if(evt_cls){
+				g_log("###  22")
 				let evt = new evt_cls()
 				evt.data = rsp
 				g_dispatcher.dispatchEvent(evt)

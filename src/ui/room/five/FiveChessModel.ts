@@ -1,5 +1,7 @@
 class FiveChessModel {
 
+	private _view : FiveChessView
+
 	public _chess_data : number[][]
 	public _room_info : RoomDetail
 
@@ -9,8 +11,6 @@ class FiveChessModel {
 
 	public _action_chair : number
 
-	public _can_action : boolean
-
 	public _crt_row : number
 	public _crt_col : number
 
@@ -18,12 +18,14 @@ class FiveChessModel {
 
 	public _players : RoomPlayer[]
 
+	public _crt_choose : FiveChess
+
 	public constructor(roominfo:RoomDetail) {
 		this._room_info = roominfo
 		this._game_started = false
 		g_log("@@@@@@@@@@@@@@@@@@  myChairID = ", roominfo.myChairID)
 		this._my_chairid = roominfo.myChairID
-		this._action_chair = 0
+		this._action_chair = -1
 		this._crt_row = -1
 		this._crt_col = -1
 		this._my_color = 0
@@ -46,8 +48,30 @@ class FiveChessModel {
 			temp.uid = pp.uid
 			temp.nickname = pp.nickname
 			temp.chairid = pp.chairid
+			temp.ready = pp.ready
 			this._players[pp.chairid] = temp
 		}
+	}
+
+	/**
+	 * 清理桌面
+	 */
+	public clean() : void{
+		for(let i = 0; i < FiveChessView.ROW; i++){
+			let col : number[] = []
+			for(let j = 0; j < FiveChessView.COL; j++){
+				col[j] = 0
+			}
+			this._chess_data[i] = col
+		}
+		this._action_chair = -1
+		this._crt_col = -1
+		this._crt_row = -1
+		this._my_color = 0
+	}
+
+	public set view(v:FiveChessView){
+		this._view = v
 	}
 
 	public get started() : boolean{
@@ -100,6 +124,26 @@ class FiveChessModel {
 		return this._my_color
 	}
 
+	public set_chesses(chesses : Array<Array<number>>, chess_btn:Array<Array<FiveChess>>) : void{
+		for(let i = 0; i < FiveChessView.ROW; i++){
+			for(let j = 0; j < FiveChessView.COL; j++){
+				this._chess_data[i][j] = chesses[i][j]
+				chess_btn[i][j].update_color( chesses[i][j] )
+			}
+		}
+	}
+
+
+	public update_choose(row:number, col:number) : void{
+		if(this._crt_choose){
+			this._crt_choose.update_color(0)
+			this._crt_choose = null
+		}
+		this._crt_row = row
+		this._crt_col = col
+		this._crt_choose = this._view.get_choose_chess(row, col)
+		this._crt_choose.on_choose(this._my_color)
+	}
 
 	public on_confirm_down() :void{
 		g_log(this._crt_col, this._crt_row, this._my_color)

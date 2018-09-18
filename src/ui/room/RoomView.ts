@@ -45,8 +45,8 @@ class RoomView extends BaseScene{
 	/**
 	 * 进入界面请求房间列表数据
 	 */
-	public on_add() : void{
-		super.on_add()
+	public on_add_myself() : void{
+		super.on_add_myself()
 		let req : RoomListReq = new RoomListReq()
 		g_socket.sendData( RoomListReq.encode( req ) )
 	}

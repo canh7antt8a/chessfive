@@ -22,14 +22,14 @@ class ChatRoomView extends BaseScene{
 		this.btn_send.addEventListener( egret.TouchEvent.TOUCH_TAP, this.btn_send_call, this )
 	}
 
-	public on_add() : void{
-		super.on_add()
+	public on_add_myself() : void{
+		super.on_add_myself()
 		g_dispatcher.addEventListener( EXIT_ROOM_EVENT.key, this.exit_room, this )		
 		g_dispatcher.addEventListener( CHATMSG_EVENT.key, this.chat_msg, this )
 	}
 
-	public on_remove() : void{
-		super.on_remove()		
+	public on_remove_myself() : void{
+		super.on_remove_myself()		
 		g_dispatcher.removeEventListener( EXIT_ROOM_EVENT.key, this.exit_room, this )	
 		g_dispatcher.removeEventListener( CHATMSG_EVENT.key, this.chat_msg, this )
 		

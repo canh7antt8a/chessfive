@@ -162,6 +162,17 @@ class FIVE_START_EVENT extends egret.Event {
 }
 
 /**
+ * FIVE_READY_EVENT  五子棋ready
+ */
+class FIVE_READY_EVENT extends egret.Event {
+    public static key : string = "FIVE_READY"
+    public data : any
+    constructor(type:string = FIVE_READY_EVENT.key, bubbles:boolean = false, cancelable:boolean = false) {
+        super( type, bubbles, cancelable )
+    }
+}
+
+/**
  * 网络消息的监听事件，需要先在这里注册
  */
 let G_Net_Event_List : any = {
@@ -176,4 +187,5 @@ let G_Net_Event_List : any = {
     ["FiveResult"] : FIVE_RESULT_EVENT,
     ["FiveStart"] : FIVE_START_EVENT,
     ["SomebodyEnterExit"] : OTHER_IN_OUT_EVENT,
+    ["FiveReady"] : FIVE_READY_EVENT,
 }

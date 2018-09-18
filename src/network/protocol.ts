@@ -108,6 +108,7 @@ class RoomInfo {
  */
 class RoomPlayer extends PlayerInfo {
     public chairid : number
+    public ready : boolean
     constructor() {
         super()
     }
@@ -237,6 +238,7 @@ class ExitRoomRsp {
 class ReEnterRoomRsp {
     public roomdetail : RoomDetail
     public inroom : boolean
+    public fivechessinfo : FiveInfo
     public static _REQ_NAME = "ReEnterRoomRsp"
     constructor() {  }
 
@@ -353,6 +355,25 @@ class FiveStart {
 	}
 }
 
+/**
+ * FiveReady 五子棋准备
+ */
+class FiveReady {
+    public uid : number
+    public roomid : number
+    public chairid : number
+    public ready : boolean
+    constructor() {}
+    public static _REQ_NAME = "FiveReady"
+
+    public static decode(str : string): FiveReady{
+		return <FiveReady>JSON.parse( str )
+	}
+
+	public static encode( ins : FiveReady ) : string{
+		return FiveReady._REQ_NAME + "#" + JSON.stringify( ins )
+	}
+}
 
 /**
  * SomebodyEnterExit 其他玩家进入或退出房间
@@ -377,6 +398,15 @@ class SomebodyEnterExit {
 }
 
 
+/**
+ * FiveInfo 五子棋的牌局信息
+ */
+class FiveInfo {
+    public chesses : Array<Array<number>>
+    public actionchair : number
+    public started:boolean
+    public mycolor:number
+}
 
 
 /**
@@ -394,6 +424,7 @@ let G_Net_Data_Cls : any = {
     ["FiveResult"] : FiveResult,
     ["FiveStart"] : FiveStart,
     ["SomebodyEnterExit"] : SomebodyEnterExit,
+    ["FiveReady"] : FiveReady,
 }
 
 

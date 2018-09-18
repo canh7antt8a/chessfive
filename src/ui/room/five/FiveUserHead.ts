@@ -1,6 +1,7 @@
 class FiveUserHead extends BaseNode{
 	public lab_uid:eui.Label;
 	public lab_nickname:eui.Label;
+	public lab_ready:eui.Label;
 
 	public _chair_id : number
 
@@ -8,12 +9,11 @@ class FiveUserHead extends BaseNode{
 		super()
 
 		this.skinName = "resource/skins/room/five/fiveuserhead.exml"
-
-		this.init()
 	}
 
-	private init() : void{
+	public init() : void{
 		this._chair_id = -1
+		this.lab_ready.visible = false
 	}
 
 	public update_info( uid:number, nickname:string ) : void{
@@ -28,5 +28,9 @@ class FiveUserHead extends BaseNode{
 
 	public set chair_id(chair:number){
 		this._chair_id = chair
+	}
+
+	public on_user_ready(ready:boolean){
+		this.lab_ready.visible = ready
 	}
 }

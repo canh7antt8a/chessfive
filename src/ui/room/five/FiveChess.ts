@@ -47,9 +47,17 @@ class FiveChess extends eui.Image{
 
 		g_log( this._row, this._col )
 
+		this._model.update_choose( this._row, this._col )
+	}
+
+
+	public on_choose(color:number):void{
+		if(color == 1)	
+			this.texture = RES.getRes("black_png")
+		else
+			this.texture = RES.getRes("white_png")
+
 		this.alpha = 0.5
-		this._model._crt_row = this._row
-		this._model._crt_col = this._col
 	}
 
 	public set_model(model:FiveChessModel){

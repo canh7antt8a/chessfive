@@ -5,6 +5,9 @@ class BaseScene extends eui.Component{
 
 	public _scene_name : string = "base"
 
+	/**
+	 * 监听列表
+	 */
 	public _listen_map : any = {}
 
 	public constructor() {
@@ -17,7 +20,7 @@ class BaseScene extends eui.Component{
 		this.once( egret.Event.REMOVED, this.on_remove, this )
 	}
 
-	public on_add_stage() : void{
+	public on_add_stage(evt:egret.Event) : void{
 		let scaleX = this.stage.stageWidth/SCREEN_WIDTH
 		let scaleY = this.stage.stageHeight/SCREEN_HEIGHT
 
@@ -33,16 +36,38 @@ class BaseScene extends eui.Component{
 	}
 
 	/**
+	 * 这个是添加自己或者添加子对象都会调用
+	 */
+	private on_add(evt:egret.Event) : void{
+		if(evt.target == this){
+			this.on_add_myself()
+		}else{
+			//添加子对象
+		}
+	}
+
+	/**
 	 * 进入场景触发事件，子类可重写
 	 */
-	public on_add() : void{
+	public on_add_myself() : void{
 		this.add_event_listen()
+	}
+
+	/**
+	 * 删除自己或者删除子对象都会调用这个
+	 */
+	private on_remove(evt:egret.Event) : void{
+		if(evt.target == this){
+			this.on_remove_myself()
+		}else{
+			//删除子对象
+		}
 	}
 
 	/**
 	 * 退出场景触发事件，子类可重写
 	 */
-	public on_remove() : void{
+	public on_remove_myself() : void{
 		this.remove_event_listen()
 	}
 
@@ -98,14 +123,14 @@ class BaseScene extends eui.Component{
 	public re_enterroom_rsp(evt:RE_ENTERROOM_EVENT) : void{
 		g_log("re_enterroom_rsp+++++++++++++++")
 		let data : ReEnterRoomRsp = evt.data
+		g_log(data)
 		if(data.inroom){
-			g_log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
 			if(data.roomdetail.roomtype == RoomType.Chat){
-				g_log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ##########")			
 				g_main_node.replace_scene( new ChatRoomView(data.roomdetail) )
 			}else if(data.roomdetail.roomtype == RoomType.FiveChess){
-				g_log("##########")
-				g_main_node.replace_scene( new FiveChessView(data.roomdetail) )
+				let five : FiveChessView = new FiveChessView(data.roomdetail)
+				five.reconnect_init(data.fivechessinfo)
+				g_main_node.replace_scene( five )
 			}
 		}else{
 			if(this._scene_name == "chatroom"){

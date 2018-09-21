@@ -15,8 +15,15 @@ class ChatRoomView extends BaseScene{
 
 		this._room_info = roominfo
 		this._chat_model = new ChatModel( roominfo )
+	}
 
-		this.init()
+	/**
+	 * 初始化，在BaseScene的加载皮肤文件成功回调on_ui_complete方法中被调用
+	 */
+	public init() : void{
+		super.init();
+		this.chat_list.itemRenderer = ChatItem
+		this.chat_list.dataProvider = this._chat_model._chat_array
 
 		this.btn_back.addEventListener( egret.TouchEvent.TOUCH_TAP, this.btn_back_call, this )
 		this.btn_send.addEventListener( egret.TouchEvent.TOUCH_TAP, this.btn_send_call, this )
@@ -33,12 +40,6 @@ class ChatRoomView extends BaseScene{
 		g_dispatcher.removeEventListener( EXIT_ROOM_EVENT.key, this.exit_room, this )	
 		g_dispatcher.removeEventListener( CHATMSG_EVENT.key, this.chat_msg, this )
 		
-	}
-
-	private init() : void{
-		this.chat_list.itemRenderer = ChatItem
-
-		this.chat_list.dataProvider = this._chat_model._chat_array
 	}
 
 	private exit_room(evt:EXIT_ROOM_EVENT) : void{

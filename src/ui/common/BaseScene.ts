@@ -1,3 +1,4 @@
+
 /**
  * 场景的基类，游戏内的场景都需要继承此类
  */
@@ -5,6 +6,7 @@ class BaseScene extends eui.Component{
 
 	public _scene_name : string = "base"
 
+	private _bg : eui.Group
 	/**
 	 * 监听列表
 	 */
@@ -18,32 +20,28 @@ class BaseScene extends eui.Component{
 		this.once( egret.Event.ADDED_TO_STAGE, this.on_add_stage, this )
 		this.once( egret.Event.ADDED, this.on_add, this )
 		this.once( egret.Event.REMOVED, this.on_remove, this )
+		this.once( eui.UIEvent.COMPLETE, this.on_ui_complete, this )
 	}
 
-	public on_add_stage(evt:egret.Event) : void{
-		let scaleX = this.stage.stageWidth/SCREEN_WIDTH
-		let scaleY = this.stage.stageHeight/SCREEN_HEIGHT
+	/**
+	 * 加载皮肤文件完成的回调函数
+	 */
+	public on_ui_complete(): void{
+		this.init()
+	}
 
-		if(scaleX < scaleY){
-			this.scaleX = scaleX
-			this.scaleY = scaleX
-			this.stage.scaleMode = egret.StageScaleMode.FIXED_WIDTH
-		}else{
-			this.scaleX = scaleY
-			this.scaleY = scaleY
-			this.stage.scaleMode = egret.StageScaleMode.FIXED_HEIGHT
-		}
+	public init() : void{}
+
+	public on_add_stage(evt:egret.Event) : void{
+		this.stage.addEventListener( egret.Event.RESIZE, this.resize, this )
+		this.resize()
 	}
 
 	/**
 	 * 这个是添加自己或者添加子对象都会调用
 	 */
 	private on_add(evt:egret.Event) : void{
-		if(evt.target == this){
-			this.on_add_myself()
-		}else{
-			//添加子对象
-		}
+
 	}
 
 	/**
@@ -57,11 +55,7 @@ class BaseScene extends eui.Component{
 	 * 删除自己或者删除子对象都会调用这个
 	 */
 	private on_remove(evt:egret.Event) : void{
-		if(evt.target == this){
-			this.on_remove_myself()
-		}else{
-			//删除子对象
-		}
+
 	}
 
 	/**
@@ -77,7 +71,7 @@ class BaseScene extends eui.Component{
 		}
 	}
 
-	public add_event_listen() : void{
+	public add_event_listen() : void{		
 		this._listen_map[LOGIN_RSP_EVENT.key] = this.login_rsp_event
 		this._listen_map[SOCKET_OPEN_EVENT.key] = this.connect_suc_rsp
 		this._listen_map[RE_ENTERROOM_EVENT.key] = this.re_enterroom_rsp
@@ -137,5 +131,71 @@ class BaseScene extends eui.Component{
 				g_main_node.replace_scene( new LoginView() )
 			}
 		}
+	}
+
+
+	/**
+	 * 获取缩放比例
+	 */
+	private get_ui_scale() : number{
+		var scale = 0
+
+		var max_ui_ratio = UI_RATIO
+
+		var w = window.innerWidth
+		var h = window.innerHeight
+		var ratio = w/h
+
+		if(ratio > max_ui_ratio){
+			w = h*max_ui_ratio
+		}
+		
+		scale = w/SCREEN_WIDTH
+
+		return scale
+	}
+
+	private get_ui_rect() : egret.Rectangle{
+		let r = new egret.Rectangle()
+		let scale = this.get_ui_scale()
+		let w = window.innerWidth/scale
+		let h = window.innerHeight/scale
+		r.x = 0
+		r.y = 0
+		r.width = w
+		r.height = h
+
+		return r
+	}
+
+	private resize():void{
+		console.log(window.innerWidth, window.innerHeight)
+
+		// console.log( this.get_ui_scale() )
+		// console.log(this.get_ui_rect())
+
+		let offsetx = window.innerWidth/2
+		let offsety = window.innerHeight/2
+		let scale = this.get_ui_scale()
+		this.width = window.innerWidth/scale
+		this.height = window.innerHeight/scale
+		this.anchorOffsetX = this.width/2
+		this.anchorOffsetY = this.height/2
+		this.scaleX = scale
+		this.scaleY = scale
+
+		if(this._bg){
+			this._bg.scaleX = this.width/this._bg.width
+			this._bg.scaleY = this.height/this._bg.height
+		}
+	}
+
+	/**
+	 * 背景适应，由子类根据需要调用
+	 */
+	public adapt_bg(bg:eui.Group) : void{
+		this._bg = bg
+		bg.scaleX = this.width/bg.width
+		bg.scaleY = this.height/bg.height
 	}
 }

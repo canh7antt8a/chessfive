@@ -1,16 +1,25 @@
 class RoomView extends BaseScene{
 	public room_list:eui.List;
 	public room_data_array:eui.ArrayCollection
+	public group_bg:eui.Group;
 
 	public constructor() {
 		super()
 
 		this._scene_name = "roomview"
 		this.skinName = "resource/skins/room/roomlist.exml"
+	}
 
-		this.init()
+	/**
+	 * 初始化，在BaseScene的加载皮肤文件成功回调on_ui_complete方法中被调用
+	 */
+	public init() : void{
+		super.init();
+		this.room_list.itemRenderer = RoomListItem
+		this.room_data_array = new eui.ArrayCollection()
+		this.room_list.dataProvider = this.room_data_array
 
-		
+		this.adapt_bg( this.group_bg )
 	}
 
 	public add_event_listen() : void{
@@ -23,13 +32,6 @@ class RoomView extends BaseScene{
 		super.remove_event_listen()
 		g_dispatcher.removeEventListener( ROOM_LIST_EVENT.key, this.room_list_rsp, this )
 		g_dispatcher.removeEventListener( ENTER_ROOM_EVENT.key, this.enter_room_rsp, this )
-	}
-
-	private init() : void{
-		this.room_list.itemRenderer = RoomListItem
-
-		this.room_data_array = new eui.ArrayCollection()
-		this.room_list.dataProvider = this.room_data_array
 	}
 
 	private init_test_data():void{

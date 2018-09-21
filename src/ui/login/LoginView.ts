@@ -1,28 +1,35 @@
 class LoginView extends BaseScene{
-	public group_bg:eui.Group;
 	public input_id:eui.TextInput;
 	public input_psw:eui.TextInput;
 	public btn_login:eui.Button;
+	public group_bg:eui.Group;
 
 	public constructor() {
 		super()
 
 		this._scene_name = "login"
 		this.skinName = "resource/skins/login_view.exml"
+	}
 
-		this.btn_login.addEventListener(egret.TouchEvent.TOUCH_TAP, this.btn_tap, this)
+	/**
+	 * 初始化，在BaseScene的加载皮肤文件成功回调on_ui_complete方法中被调用
+	 */
+	public init() : void{
+		super.init();
 
-		this.input_id.text = "12345"
+		this.input_id.text = "10001"
 		this.input_psw.text = "lixiaojie"
+		this.btn_login.addEventListener(egret.TouchEvent.TOUCH_TAP, this.btn_tap, this)
+		this.adapt_bg( this.group_bg )
 	}
 
-	public add_event_listen() : void{
-		super.add_event_listen()
-	}
+	// public add_event_listen() : void{
+	// 	super.add_event_listen()
+	// }
 
-	public remove_event_listen() : void{
-		super.remove_event_listen()
-	}
+	// public remove_event_listen() : void{
+	// 	super.remove_event_listen()
+	// }
 
 	private btn_tap():void{
 		g_socket.reconnect()

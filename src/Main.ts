@@ -32,15 +32,32 @@ class Main extends eui.UILayer {
     public _scenes : BaseScene[]
     public _crt_scene : BaseScene
 
+    private on_add(evt:egret.Event) : void{
+        if(evt.target instanceof BaseScene){
+            g_log( "main add scene : ", evt.target._scene_name )
+            evt.target.on_add_myself()
+        }
+    }
+
+    private on_remove(evt:egret.Event):void{
+        if(evt.target instanceof BaseScene){
+            g_log("main remove scene : ", evt.target._scene_name)
+            evt.target.on_remove_myself()
+        }
+    }
+
     protected createChildren(): void {
+        this.stage.scaleMode = egret.StageScaleMode.NO_SCALE;
         super.createChildren();
+
+        this.addEventListener( egret.Event.ADDED, this.on_add, this )
 
         egret.lifecycle.addLifecycleListener((context) => {
             // custom lifecycle plugin
         })
 
         egret.lifecycle.onPause = () => {
-            console.log("lifecycle onPause")
+            // console.log("lifecycle onPause")
 
             // if(g_dispatcher){
             //     let event : BACK_GROUND_EVENT = new BACK_GROUND_EVENT()
@@ -51,7 +68,7 @@ class Main extends eui.UILayer {
         }
 
         egret.lifecycle.onResume = () => {
-            console.log("lifecycle onResume")
+            // console.log("lifecycle onResume")
 
             // if(g_dispatcher){
             //     let event : FORGE_GROUND_EVENT = new FORGE_GROUND_EVENT()

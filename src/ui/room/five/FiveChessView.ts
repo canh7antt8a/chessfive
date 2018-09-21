@@ -15,20 +15,28 @@ class FiveChessView extends BaseScene{
 	public btn_ready:eui.Button;
 
 	public _result_view : FiveResultView
+	public _roominfo : RoomDetail
 
 	public constructor(roominfo:RoomDetail) {
 		super()
 
-		this._scene_name = "login"
+		this._scene_name = "five"
 
 		this.skinName = "resource/skins/room/five/fivechess.exml"
+		this._roominfo = roominfo
+	}
 
-		this.init(roominfo)
+	/**
+	 * 初始化，在BaseScene的加载皮肤文件成功回调on_ui_complete方法中被调用
+	 */
+	public init() : void{
+		super.init();
+		this.init_info()
 		this.init_chess_button()
 	}
 
-	private init(roominfo:RoomDetail) : void{
-		
+	private init_info() : void{
+		let roominfo = this._roominfo
 		this._chess_btn = new Array<Array<FiveChess>>()
 		this._chess_model = new FiveChessModel(roominfo)
 		this._chess_model.view = this

@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="roomlist" width="768" height="1366" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Rect width="700" height="1200" horizontalCenter="0" verticalCenter="0" fillColor="0xc98f8f" ellipseWidth="20" ellipseHeight="20" strokeWeight="5"/>
-	<e:Scroller width="700" height="1200" horizontalCenter="0" verticalCenter="0">
-		<e:List id="room_list"/>
-	</e:Scroller>
+	<e:Group id="group_bg" width="768" height="1366" anchorOffsetX="384" anchorOffsetY="683" horizontalCenter="0" verticalCenter="0">
+		<e:Image source="bg_jpg" horizontalCenter="0" verticalCenter="0" anchorOffsetX="384" anchorOffsetY="683"/>
+	</e:Group>
+	<e:Group id="group_center" width="768" height="1366" anchorOffsetX="384" anchorOffsetY="683" horizontalCenter="0" verticalCenter="0">
+		<e:Rect width="700" height="1000" horizontalCenter="0" verticalCenter="0" fillColor="0xc98f8f" ellipseWidth="20" ellipseHeight="20" strokeWeight="5" x="34" y="83" scaleX="1" scaleY="1"/>
+		<e:Scroller width="700" height="1000" horizontalCenter="0" verticalCenter="0" x="34" y="83" scaleX="1" scaleY="1">
+			<e:List id="room_list"/>
+		</e:Scroller>
+	</e:Group>
+	<e:Group id="group_top" width="768" height="1366" anchorOffsetX="384" anchorOffsetY="0" horizontalCenter="0" top="0" touchThrough="true">
+		<e:Group width="450" height="120" horizontalCenter="0" top="20">
+			<e:Image source="userinfo_bg_png" width="295" height="78" scaleX="1" scaleY="1" horizontalCenter="0" verticalCenter="0"/>
+			<e:Image width="70" height="70" scaleX="1" scaleY="1" left="82" verticalCenter="0.5" source="player_head_png"/>
+			<e:Label id="lab_uid" text="uid" textAlign="left" left="170" verticalCenter="14"/>
+			<e:Label id="lab_nickname" text="nickname" verticalCenter="-17" left="170"/>
+		</e:Group>
+	</e:Group>
 </e:Skin>
